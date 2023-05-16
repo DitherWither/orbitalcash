@@ -1,0 +1,28 @@
+{
+  "query": "SELECT expense_id, user_id FROM expenses WHERE expense_id = $1 AND user_id = $2",
+  "describe": {
+    "columns": [
+      {
+        "ordinal": 0,
+        "name": "expense_id",
+        "type_info": "Int4"
+      },
+      {
+        "ordinal": 1,
+        "name": "user_id",
+        "type_info": "Int4"
+      }
+    ],
+    "parameters": {
+      "Left": [
+        "Int4",
+        "Int4"
+      ]
+    },
+    "nullable": [
+      false,
+      true
+    ]
+  },
+  "hash": "25f96b5070b2646edc42d88117ba29e0d760bf8210e2acc3c6b7f82ea9d96347"
+}

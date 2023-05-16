@@ -1,0 +1,6 @@
+[workspace]
+members = [
+    "crates/api-rocket",
+    "crates/api-core/db",
+    "crates/api-core/json-handlers"
+]

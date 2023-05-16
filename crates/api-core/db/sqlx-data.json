@@ -1,0 +1,409 @@
+{
+  "db": "PostgreSQL",
+  "25f96b5070b2646edc42d88117ba29e0d760bf8210e2acc3c6b7f82ea9d96347": {
+    "describe": {
+      "columns": [
+        {
+          "name": "expense_id",
+          "ordinal": 0,
+          "type_info": "Int4"
+        },
+        {
+          "name": "user_id",
+          "ordinal": 1,
+          "type_info": "Int4"
+        }
+      ],
+      "nullable": [
+        false,
+        true
+      ],
+      "parameters": {
+        "Left": [
+          "Int4",
+          "Int4"
+        ]
+      }
+    },
+    "query": "SELECT expense_id, user_id FROM expenses WHERE expense_id = $1 AND user_id = $2"
+  },
+  "2e8386de3c6e2c307b21f9a63170acae86481374ae8500a31e77eb6b9fd5715f": {
+    "describe": {
+      "columns": [
+        {
+          "name": "user_id",
+          "ordinal": 0,
+          "type_info": "Int4"
+        },
+        {
+          "name": "display_name",
+          "ordinal": 1,
+          "type_info": "Text"
+        },
+        {
+          "name": "email",
+          "ordinal": 2,
+          "type_info": "Text"
+        },
+        {
+          "name": "creation_time",
+          "ordinal": 3,
+          "type_info": "Timestamp"
+        }
+      ],
+      "nullable": [
+        false,
+        false,
+        false,
+        false
+      ],
+      "parameters": {
+        "Left": [
+          "Int4"
+        ]
+      }
+    },
+    "query": "SELECT user_id, display_name, email, creation_time FROM users WHERE user_id = $1"
+  },
+  "3f050c5d508ae470a65178cf7d028f647f6ff6192459c5bab246a5c4f67980cb": {
+    "describe": {
+      "columns": [],
+      "nullable": [],
+      "parameters": {
+        "Left": [
+          "Int4"
+        ]
+      }
+    },
+    "query": "DELETE FROM expenses_tags WHERE expense_id = $1"
+  },
+  "4fb75e65e37af956f32069fb935c2fcc69a8812fd057ad9527758d09818f0729": {
+    "describe": {
+      "columns": [
+        {
+          "name": "user_id",
+          "ordinal": 0,
+          "type_info": "Int4"
+        },
+        {
+          "name": "email",
+          "ordinal": 1,
+          "type_info": "Text"
+        },
+        {
+          "name": "password",
+          "ordinal": 2,
+          "type_info": "Text"
+        }
+      ],
+      "nullable": [
+        false,
+        false,
+        false
+      ],
+      "parameters": {
+        "Left": [
+          "Text"
+        ]
+      }
+    },
+    "query": "SELECT user_id, email, password FROM users WHERE email = $1"
+  },
+  "52849d412c2073a0738a413a0fb276a92fb1da72869dd57285db45dd1010deca": {
+    "describe": {
+      "columns": [],
+      "nullable": [],
+      "parameters": {
+        "Left": [
+          "Numeric",
+          "Text",
+          "Int4",
+          "Int4"
+        ]
+      }
+    },
+    "query": "UPDATE expenses SET amount = $1, description = $2 WHERE expense_id = $3 AND user_id = $4"
+  },
+  "92089cd68e8126c122a8ffcf216f3f561a2c858bfe79149e62588b87683f7473": {
+    "describe": {
+      "columns": [],
+      "nullable": [],
+      "parameters": {
+        "Left": [
+          "Text",
+          "Text",
+          "Text"
+        ]
+      }
+    },
+    "query": "INSERT INTO users (display_name, email, password) VALUES ($1, $2, $3)"
+  },
+  "a160be6de2789542a008b0183c80da36b077c15e116b463cf91514280014a993": {
+    "describe": {
+      "columns": [],
+      "nullable": [],
+      "parameters": {
+        "Left": [
+          "Int4",
+          "Int4"
+        ]
+      }
+    },
+    "query": "INSERT INTO expenses_tags (expense_id, tag_id) VALUES ($1, $2)"
+  },
+  "b64e60b67a02449d41233f11cd88e8f26ece1231e5ff262a6dbc0568b6c1a4dc": {
+    "describe": {
+      "columns": [
+        {
+          "name": "expense_id",
+          "ordinal": 0,
+          "type_info": "Int4"
+        },
+        {
+          "name": "user_id",
+          "ordinal": 1,
+          "type_info": "Int4"
+        },
+        {
+          "name": "amount",
+          "ordinal": 2,
+          "type_info": "Numeric"
+        },
+        {
+          "name": "description",
+          "ordinal": 3,
+          "type_info": "Text"
+        },
+        {
+          "name": "expense_time",
+          "ordinal": 4,
+          "type_info": "Timestamp"
+        }
+      ],
+      "nullable": [
+        false,
+        true,
+        false,
+        false,
+        false
+      ],
+      "parameters": {
+        "Left": [
+          "Int4"
+        ]
+      }
+    },
+    "query": "SELECT expense_id, user_id, amount, description, expense_time FROM expenses WHERE expense_id = $1"
+  },
+  "ba6a71ed661ebd787202dead40893a51f21eb6ff1df318b01c1706b19b4db7dd": {
+    "describe": {
+      "columns": [
+        {
+          "name": "expense_id",
+          "ordinal": 0,
+          "type_info": "Int4"
+        }
+      ],
+      "nullable": [
+        false
+      ],
+      "parameters": {
+        "Left": [
+          "Int4",
+          "Numeric",
+          "Text"
+        ]
+      }
+    },
+    "query": "INSERT INTO expenses (user_id, amount, description) VALUES ($1, $2, $3) RETURNING expense_id"
+  },
+  "c3969a73e0449121c69bc5f68daa7964cd8a83d15a2b1b5f7d60037d2345cd99": {
+    "describe": {
+      "columns": [
+        {
+          "name": "user_id",
+          "ordinal": 0,
+          "type_info": "Int4"
+        },
+        {
+          "name": "display_name",
+          "ordinal": 1,
+          "type_info": "Text"
+        },
+        {
+          "name": "email",
+          "ordinal": 2,
+          "type_info": "Text"
+        },
+        {
+          "name": "password",
+          "ordinal": 3,
+          "type_info": "Text"
+        },
+        {
+          "name": "creation_time",
+          "ordinal": 4,
+          "type_info": "Timestamp"
+        }
+      ],
+      "nullable": [
+        false,
+        false,
+        false,
+        false,
+        false
+      ],
+      "parameters": {
+        "Left": [
+          "Int4"
+        ]
+      }
+    },
+    "query": "SELECT user_id, display_name, email, password, creation_time FROM users WHERE user_id = $1"
+  },
+  "d6e3e30d621b06dabec5d5e171c731ee0a7069a5a5d793b96c291cf9ba006af3": {
+    "describe": {
+      "columns": [
+        {
+          "name": "tag_id",
+          "ordinal": 0,
+          "type_info": "Int4"
+        },
+        {
+          "name": "tagname",
+          "ordinal": 1,
+          "type_info": "Text"
+        }
+      ],
+      "nullable": [
+        false,
+        false
+      ],
+      "parameters": {
+        "Left": [
+          "Int4"
+        ]
+      }
+    },
+    "query": "SELECT tag_id, tagname FROM tags WHERE tag_id IN (SELECT tag_id FROM expenses_tags WHERE expense_id = $1)"
+  },
+  "efa7b0d2eed28ce72deb9ab8024f835214692fae36101518a790ebf9f0d4e2f5": {
+    "describe": {
+      "columns": [
+        {
+          "name": "user_id",
+          "ordinal": 0,
+          "type_info": "Int4"
+        }
+      ],
+      "nullable": [
+        false
+      ],
+      "parameters": {
+        "Left": [
+          "Text"
+        ]
+      }
+    },
+    "query": "SELECT user_id FROM users WHERE email = $1"
+  },
+  "f764620d284756aa785d8a2d3c8a09982c148677c1e24d9b9238c4713e8ddae5": {
+    "describe": {
+      "columns": [
+        {
+          "name": "user_id",
+          "ordinal": 0,
+          "type_info": "Int4"
+        },
+        {
+          "name": "display_name",
+          "ordinal": 1,
+          "type_info": "Text"
+        },
+        {
+          "name": "email",
+          "ordinal": 2,
+          "type_info": "Text"
+        },
+        {
+          "name": "password",
+          "ordinal": 3,
+          "type_info": "Text"
+        },
+        {
+          "name": "creation_time",
+          "ordinal": 4,
+          "type_info": "Timestamp"
+        }
+      ],
+      "nullable": [
+        false,
+        false,
+        false,
+        false,
+        false
+      ],
+      "parameters": {
+        "Left": []
+      }
+    },
+    "query": "SELECT user_id, display_name, email, password, creation_time FROM users"
+  },
+  "f8e4302cfe4cd3cf123557670bae38a8ac01300eed2b8121e59295bb503e095f": {
+    "describe": {
+      "columns": [
+        {
+          "name": "expense_id",
+          "ordinal": 0,
+          "type_info": "Int4"
+        },
+        {
+          "name": "user_id",
+          "ordinal": 1,
+          "type_info": "Int4"
+        },
+        {
+          "name": "amount",
+          "ordinal": 2,
+          "type_info": "Numeric"
+        },
+        {
+          "name": "description",
+          "ordinal": 3,
+          "type_info": "Text"
+        },
+        {
+          "name": "expense_time",
+          "ordinal": 4,
+          "type_info": "Timestamp"
+        }
+      ],
+      "nullable": [
+        false,
+        true,
+        false,
+        false,
+        false
+      ],
+      "parameters": {
+        "Left": [
+          "Int4"
+        ]
+      }
+    },
+    "query": "SELECT expense_id, user_id, amount, description, expense_time FROM expenses WHERE user_id = $1"
+  },
+  "fde1f146cbf67fa4894e4e3f65c3bea4626453a22d70ccebe97f70630e077352": {
+    "describe": {
+      "columns": [],
+      "nullable": [],
+      "parameters": {
+        "Left": [
+          "Int4",
+          "Int4"
+        ]
+      }
+    },
+    "query": "DELETE FROM expenses WHERE expense_id = $1 AND user_id = $2"
+  }
+}
