@@ -1,28 +1,14 @@
 {
-  "query": "SELECT expense_id, user_id FROM expenses WHERE expense_id = $1 AND user_id = $2",
+  "query": "DELETE FROM tags WHERE tag_id = $1 AND user_id = $2",
   "describe": {
-    "columns": [
-      {
-        "ordinal": 0,
-        "name": "expense_id",
-        "type_info": "Int4"
-      },
-      {
-        "ordinal": 1,
-        "name": "user_id",
-        "type_info": "Int4"
-      }
-    ],
+    "columns": [],
     "parameters": {
       "Left": [
         "Int4",
         "Int4"
       ]
     },
-    "nullable": [
-      false,
-      true
-    ]
+    "nullable": []
   },
-  "hash": "25f96b5070b2646edc42d88117ba29e0d760bf8210e2acc3c6b7f82ea9d96347"
+  "hash": "cde1bfe9d6836530d578ffb8b1cee7921cdce1bb88730153dd8ae2e92f247975"
 }

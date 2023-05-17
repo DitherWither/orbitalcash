@@ -1,4 +1,4 @@
-use rocket::{launch, Config};
+use rocket::launch;
 use sqlx::postgres::PgPoolOptions;
 
 mod guards;
@@ -25,5 +25,6 @@ async fn rocket() -> _ {
         .mount("/api/users", routes::users::get_routes())
         .mount("/api/auth", routes::auth::get_routes())
         .mount("/api/expenses", routes::expenses::get_routes())
+        .mount("/api/tags", routes::tags::get_routes())
         .manage(app_service)
 }

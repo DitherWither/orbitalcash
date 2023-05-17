@@ -1,5 +1,60 @@
 {
   "db": "PostgreSQL",
+  "0d2f4e01149175fac4f33bb6bcf0d068f5ba1afe31479b299038958e2915ca53": {
+    "describe": {
+      "columns": [
+        {
+          "name": "tag_id",
+          "ordinal": 0,
+          "type_info": "Int4"
+        },
+        {
+          "name": "tagname",
+          "ordinal": 1,
+          "type_info": "Text"
+        }
+      ],
+      "nullable": [
+        false,
+        false
+      ],
+      "parameters": {
+        "Left": [
+          "Int4",
+          "Int4"
+        ]
+      }
+    },
+    "query": "SELECT tag_id, tagname FROM tags WHERE tag_id = $1 AND user_id = $2"
+  },
+  "161cf646de9518666e1bf2bcc31b314b93a35b4f004782494279dd9699c2472f": {
+    "describe": {
+      "columns": [
+        {
+          "name": "tag_id",
+          "ordinal": 0,
+          "type_info": "Int4"
+        },
+        {
+          "name": "tagname",
+          "ordinal": 1,
+          "type_info": "Text"
+        }
+      ],
+      "nullable": [
+        false,
+        false
+      ],
+      "parameters": {
+        "Left": [
+          "Text",
+          "Int4",
+          "Int4"
+        ]
+      }
+    },
+    "query": "UPDATE tags SET tagname = $1 WHERE tag_id = $2 AND user_id = $3 RETURNING tag_id, tagname"
+  },
   "25f96b5070b2646edc42d88117ba29e0d760bf8210e2acc3c6b7f82ea9d96347": {
     "describe": {
       "columns": [
@@ -124,6 +179,59 @@
     },
     "query": "UPDATE expenses SET amount = $1, description = $2 WHERE expense_id = $3 AND user_id = $4"
   },
+  "6e30d8db119f8f811e046b8627919fbd9c2b7befd703c902b3ab9b8cc027338f": {
+    "describe": {
+      "columns": [
+        {
+          "name": "tag_id",
+          "ordinal": 0,
+          "type_info": "Int4"
+        },
+        {
+          "name": "tagname",
+          "ordinal": 1,
+          "type_info": "Text"
+        }
+      ],
+      "nullable": [
+        false,
+        false
+      ],
+      "parameters": {
+        "Left": [
+          "Text",
+          "Int4"
+        ]
+      }
+    },
+    "query": "INSERT INTO tags (tagname, user_id) VALUES ($1, $2) RETURNING tag_id, tagname"
+  },
+  "8af9929a0ddad67232b23d776a2233680327738c1f07543749a972fdcd606d0a": {
+    "describe": {
+      "columns": [
+        {
+          "name": "tag_id",
+          "ordinal": 0,
+          "type_info": "Int4"
+        },
+        {
+          "name": "tagname",
+          "ordinal": 1,
+          "type_info": "Text"
+        }
+      ],
+      "nullable": [
+        false,
+        false
+      ],
+      "parameters": {
+        "Left": [
+          "Int4"
+        ]
+      }
+    },
+    "query": "SELECT tag_id, tagname FROM tags WHERE tag_id = $1"
+  },
   "92089cd68e8126c122a8ffcf216f3f561a2c858bfe79149e62588b87683f7473": {
     "describe": {
       "columns": [],
@@ -137,6 +245,32 @@
       }
     },
     "query": "INSERT INTO users (display_name, email, password) VALUES ($1, $2, $3)"
+  },
+  "a0f912fa90a68b2f03894cb5d2972378e6cdff8b7b3b6b7c3768b10de7c1abfb": {
+    "describe": {
+      "columns": [
+        {
+          "name": "tag_id",
+          "ordinal": 0,
+          "type_info": "Int4"
+        },
+        {
+          "name": "tagname",
+          "ordinal": 1,
+          "type_info": "Text"
+        }
+      ],
+      "nullable": [
+        false,
+        false
+      ],
+      "parameters": {
+        "Left": [
+          "Int4"
+        ]
+      }
+    },
+    "query": "SELECT tag_id, tagname FROM tags WHERE user_id = $1"
   },
   "a160be6de2789542a008b0183c80da36b077c15e116b463cf91514280014a993": {
     "describe": {
@@ -260,6 +394,19 @@
       }
     },
     "query": "SELECT user_id, display_name, email, password, creation_time FROM users WHERE user_id = $1"
+  },
+  "cde1bfe9d6836530d578ffb8b1cee7921cdce1bb88730153dd8ae2e92f247975": {
+    "describe": {
+      "columns": [],
+      "nullable": [],
+      "parameters": {
+        "Left": [
+          "Int4",
+          "Int4"
+        ]
+      }
+    },
+    "query": "DELETE FROM tags WHERE tag_id = $1 AND user_id = $2"
   },
   "d6e3e30d621b06dabec5d5e171c731ee0a7069a5a5d793b96c291cf9ba006af3": {
     "describe": {

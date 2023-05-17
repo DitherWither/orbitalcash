@@ -1,9 +1,9 @@
 use rust_decimal::Decimal;
-use serde::{Serialize, Deserialize};
+use serde::{Deserialize, Serialize};
 use sqlx::PgPool;
 
 use crate::models::{Expense, Tag, User};
-  
+
 pub struct ExpenseService {
     db: PgPool,
 }
@@ -39,7 +39,9 @@ impl ExpenseService {
         let user = sqlx::query!(
             "SELECT user_id, display_name, email, creation_time FROM users WHERE user_id = $1",
             user_id
-        ).fetch_one(&self.db).await?;
+        )
+        .fetch_one(&self.db)
+        .await?;
 
         let user = User {
             user_id: user.user_id,
@@ -84,7 +86,9 @@ impl ExpenseService {
         let user = sqlx::query!(
             "SELECT user_id, display_name, email, creation_time FROM users WHERE user_id = $1",
             expense.user_id
-        ).fetch_one(&self.db).await?;
+        )
+        .fetch_one(&self.db)
+        .await?;
 
         let user = User {
             user_id: user.user_id,
@@ -107,13 +111,19 @@ impl ExpenseService {
     }
 
     /// Same as get_by_id, but checks if expense belongs to user
-    pub async fn get_by_id_checked(&self, expense_id: i32, user_id: i32) -> Result<Option<Expense>, sqlx::Error> {
+    pub async fn get_by_id_checked(
+        &self,
+        expense_id: i32,
+        user_id: i32,
+    ) -> Result<Option<Expense>, sqlx::Error> {
         // check if expense belongs to user
         let expense = sqlx::query!(
             "SELECT expense_id, user_id FROM expenses WHERE expense_id = $1 AND user_id = $2",
             expense_id,
             user_id
-        ).fetch_optional(&self.db).await?;
+        )
+        .fetch_optional(&self.db)
+        .await?;
 
         if expense.is_none() {
             return Ok(None);
@@ -122,15 +132,20 @@ impl ExpenseService {
         self.get_by_id(expense_id).await.map(|e| Some(e))
     }
 
-    pub async fn delete_by_id_checked(&self, expense_id: i32, user_id: i32) -> Result<(), sqlx::Error> {
+    pub async fn delete_by_id_checked(
+        &self,
+        expense_id: i32,
+        user_id: i32,
+    ) -> Result<(), sqlx::Error> {
         sqlx::query!(
             "DELETE FROM expenses WHERE expense_id = $1 AND user_id = $2",
             expense_id,
             user_id
-        ).execute(&self.db).await?;
+        )
+        .execute(&self.db)
+        .await?;
         Ok(())
     }
-    
 
     // TODO: Create a create and update function
     pub async fn create(&self, expense: CreateExpense) -> Result<i32, sqlx::Error> {
@@ -148,13 +163,20 @@ impl ExpenseService {
                 "INSERT INTO expenses_tags (expense_id, tag_id) VALUES ($1, $2)",
                 new_expense.expense_id,
                 tag_id
-            ).execute(&self.db).await?;
+            )
+            .execute(&self.db)
+            .await?;
         }
 
         Ok(new_expense.expense_id)
     }
 
-    pub async fn update(&self, expense: CreateExpense, expense_id: i32, user_id: i32) -> Result<(), sqlx::Error> {
+    pub async fn update_by_id_checked(
+        &self,
+        expense: CreateExpense,
+        expense_id: i32,
+        user_id: i32,
+    ) -> Result<(), sqlx::Error> {
         sqlx::query!(
             "UPDATE expenses SET amount = $1, description = $2 WHERE expense_id = $3 AND user_id = $4",
             expense.amount,
@@ -167,7 +189,9 @@ impl ExpenseService {
         sqlx::query!(
             "DELETE FROM expenses_tags WHERE expense_id = $1",
             expense_id
-        ).execute(&self.db).await?;
+        )
+        .execute(&self.db)
+        .await?;
 
         // Create tags
         for tag_id in expense.tags {
@@ -175,7 +199,9 @@ impl ExpenseService {
                 "INSERT INTO expenses_tags (expense_id, tag_id) VALUES ($1, $2)",
                 expense_id,
                 tag_id
-            ).execute(&self.db).await?;
+            )
+            .execute(&self.db)
+            .await?;
         }
 
         Ok(())

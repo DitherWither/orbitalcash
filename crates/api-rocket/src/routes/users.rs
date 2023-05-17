@@ -1,10 +1,12 @@
 use db::services::{user_service::UserGetError, ApplicationService};
 
 use rocket::{
+    get,
     http::Status,
     response::{content::RawJson, status},
+    routes,
     serde::json::serde_json::{self, json},
-    Route, State, routes, get,
+    Route, State,
 };
 
 pub fn get_routes() -> Vec<Route> {
@@ -18,10 +20,13 @@ async fn get_all(app_service: &State<ApplicationService>) -> status::Custom<RawJ
     match users {
         Ok(e) => status::Custom(
             Status::Ok,
-            RawJson(json!({
-                "status": "success",
-                "users": e
-            }).to_string()),
+            RawJson(
+                json!({
+                    "status": "success",
+                    "users": e
+                })
+                .to_string(),
+            ),
         ),
         Err(e) => {
             let json = serde_json::json!(
@@ -46,10 +51,13 @@ async fn get_by_id(
     match user {
         Ok(e) => status::Custom(
             Status::Ok,
-            RawJson(json!({
-                "status": "success",
-                "user": e
-            }).to_string()),
+            RawJson(
+                json!({
+                    "status": "success",
+                    "user": e
+                })
+                .to_string(),
+            ),
         ),
         Err(UserGetError::DoesNotExist(id)) => status::Custom(
             Status::NotFound,

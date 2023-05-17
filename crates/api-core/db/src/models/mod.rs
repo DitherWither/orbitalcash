@@ -1,7 +1,7 @@
-pub mod user;
-pub mod tag;
 pub mod expense;
+pub mod tag;
+pub mod user;
 
-pub use user::User;
-pub use tag::Tag;
 pub use expense::Expense;
+pub use tag::Tag;
+pub use user::User;

@@ -4,13 +4,16 @@ use db::services::{
 };
 
 use rocket::{
+    get,
     http::{Cookie, CookieJar, Status},
+    post,
     response::{content::RawJson, status},
+    routes,
     serde::json::{
         serde_json::{self, json},
         Json,
     },
-    Route, State, routes, post, get,
+    Route, State,
 };
 
 use crate::guards::CurrentUser;
